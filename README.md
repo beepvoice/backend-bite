@@ -26,14 +26,91 @@ Flags are supplied to the compiled go program in the form ```-flag=stuff```.
 GET /conversation/:key/scan
 ```
 
+Get a list of bite start times within a conversation key and specified timespan.
+
+#### URL Params
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| key | String | Audio bite's conversation's ID. |
+
+#### Querystring
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| from | Epoch timestamp | Time to start scanning from |
+| to | Epoch timestamp | Time to scan to |
+
+#### Success (200 OK)
+
+```
+Content-Type: application/json
+```
+
+```
+{
+  "previous": <Timestamp of bite before <starts>>,
+  "starts": [Timestamp, Timestamp...],
+  "next": <Timestamp of bite after <starts>>,
+}
+```
+
+#### Errors
+
+| Code | Description |
+| ---- | ----------- |
+| 400 | Absolutely ridiculous number of things. I give up. |
+
+---
+
 ### Get Bite
 
 ```
 GET /conversation/:key/start/:start
 ```
 
+Get a specific ```bite```.
+
+#### URL Params
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| key | String | Audio bite's conversation's ID. |
+| start | Epoch timestamp | Time the audio bite starts. |
+
+#### Success (200 OK)
+
+Raw audio data.
+
+#### Errors
+
+| Code | Description |
+| ---- | ----------- |
+| 400 | start is not an uint/key is not an alphanumeric string/specified bite could not be found |
+
+---
+
 ### Get Bite User
 
 ```
 GET /conversation/:key/start/:start/user
 ```
+
+Get a specific ```bite_user```.
+
+#### URL Params
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| key | String | Audio bite's conversation's ID. |
+| start | Epoch timestamp | Time the audio bite starts. |
+
+#### Success (200 OK)
+
+Raw audio data.
+
+#### Errors
+
+| Code | Description |
+| ---- | ----------- |
+| 400 | start is not an uint/key is not an alphanumeric string/specified bite could not be found |
