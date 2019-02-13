@@ -59,7 +59,8 @@ Content-Type: application/json
 
 | Code | Description |
 | ---- | ----------- |
-| 400 | Absolutely ridiculous number of things. I give up. |
+| 400 | Malformed input (from/to not timestamp, key not alphanumeric). |
+| 500 | NATs or protobuf serilisation encountered errors. |
 
 ---
 
@@ -87,6 +88,7 @@ Raw audio data.
 | Code | Description |
 | ---- | ----------- |
 | 400 | start is not an uint/key is not an alphanumeric string/specified bite could not be found |
+| 500 | NATs or protobuf serilisation encountered errors. |
 
 ---
 
@@ -114,3 +116,4 @@ Raw audio data.
 | Code | Description |
 | ---- | ----------- |
 | 400 | start is not an uint/key is not an alphanumeric string/specified bite could not be found |
+| 500 | NATs or protobuf serilisation encountered errors. |
