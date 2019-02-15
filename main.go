@@ -41,8 +41,8 @@ func main() {
 
   // NATS client
   nc, _ := nats.Connect(natsHost);
-  // nc.Subscribe("new_bite", NewBite);
-  // nc.Subscribe("new_bite_user", NewBiteUser);
+  nc.Subscribe("new_bite", NewBite);
+  nc.Subscribe("new_bite_user", NewBiteUser);
   defer nc.Close()
 
   natsConn = nc;
