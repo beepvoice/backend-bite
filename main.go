@@ -51,7 +51,7 @@ func main() {
 	router := httprouter.New()
 	router.GET("/conversation/:key/scan", ScanBites) // Scanning
   router.GET("/conversation/:key/start/:start", GetBite) // GET bites
-  // router.GET("/conversation/:key/start/:start/user", GetBiteUser) // GET bite_users
+  router.GET("/conversation/:key/start/:start/user", GetBiteUser) // GET bite_users
 
   // Start server
   log.Printf("starting server on %s", listen)
