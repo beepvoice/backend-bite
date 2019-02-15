@@ -15,7 +15,6 @@ Flags are supplied to the compiled go program in the form ```-flag=stuff```.
 | Flag | Description | Default |
 | ---- | ----------- | ------- |
 | listen | Port number to listen on | 8080 |
-| dbpath | File path to store DB data | /tmp/badger |
 | nats | URL of NATS | nats://localhost:4222 |
 
 ## API

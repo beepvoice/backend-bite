@@ -7,37 +7,21 @@ import (
   "strconv"
   "time"
 
-  "github.com/dgraph-io/badger"
-	"github.com/julienschmidt/httprouter"
+  "github.com/julienschmidt/httprouter"
   "github.com/nats-io/go-nats"
   "github.com/golang/protobuf/proto"
 )
 
 var listen string
-var dbPath string
 var natsHost string
 
-var db *badger.DB
 var natsConn *nats.Conn
 
 func main() {
   // Parse flags
   flag.StringVar(&listen, "listen", ":8080", "host and port to listen on")
-  flag.StringVar(&dbPath, "dbpath", "/tmp/badger", "path to store data")
   flag.StringVar(&natsHost, "nats", "nats://localhost:4222", "host and port of NATS")
 	flag.Parse()
-
-  // Open badger
-	log.Printf("starting badger at %s", dbPath)
-	opts := badger.DefaultOptions
-	opts.Dir = dbPath
-	opts.ValueDir = dbPath
-	var err error
-	db, err = badger.Open(opts)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer db.Close()
 
   // NATS client
   nc, _ := nats.Connect(natsHost);
