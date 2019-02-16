@@ -24,12 +24,14 @@ func main() {
 	flag.Parse()
 
   // NATS client
-  nc, _ := nats.Connect(natsHost);
-  nc.Subscribe("new_bite", NewBite);
-  nc.Subscribe("new_bite_user", NewBiteUser);
-  defer nc.Close()
-
-  natsConn = nc;
+  natsConn, err := nats.Connect(natsHost)
+  if err != nil {
+    log.Println(err)
+    return
+  }
+  natsConn.Subscribe("new_bite", NewBite)
+  natsConn.Subscribe("new_bite_user", NewBiteUser)
+  defer natsConn.Close()
 
   // Routes
 	router := httprouter.New()
@@ -67,10 +69,10 @@ func New(t string, m *nats.Msg) {
     Type: t,
     Bite: &bite,
   }
-  reqBytes, reqErr := proto.Marshal(&storeRequest)
+  reqBytes, err := proto.Marshal(&storeRequest)
 
-  if reqErr != nil {
-    log.Print(reqErr)
+  if err != nil {
+    log.Print(err)
     return
 	}
   natsConn.Publish("new_store", reqBytes)
@@ -96,14 +98,14 @@ func ScanBites(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
     Type: "bite",
   }
 
-  drBytes, drErr := proto.Marshal(&scanRequest);
-  if drErr != nil {
+  drBytes, err := proto.Marshal(&scanRequest);
+  if err != nil {
     http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
     return
   }
 
-  msg, natsErr := natsConn.Request("scan_store", drBytes, 10 * 1000 * time.Millisecond) // 10s timeout
-  if natsErr != nil {
+  msg, err := natsConn.Request("scan_store", drBytes, 10 * 1000 * time.Millisecond) // 10s timeout
+  if err != nil {
     http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
     return
   }
@@ -146,14 +148,14 @@ func Get(t string, w http.ResponseWriter, r *http.Request, p httprouter.Params) 
     Type: t,
   }
 
-  drBytes, drErr := proto.Marshal(&dataRequest);
-  if drErr != nil {
+  drBytes, err := proto.Marshal(&dataRequest);
+  if err != nil {
     http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
     return
   }
 
-  msg, natsErr := natsConn.Request("request_store", drBytes, 10 * 1000 * time.Millisecond) // 10s timeout
-  if natsErr != nil {
+  msg, err := natsConn.Request("request_store", drBytes, 10 * 1000 * time.Millisecond) // 10s timeout
+  if err != nil {
     http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
     return
   }
