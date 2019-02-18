@@ -2,6 +2,7 @@ module bite
 
 require (
 	github.com/golang/protobuf v1.2.1-0.20190205222052-c823c79ea157
+	github.com/joho/godotenv v1.3.0
 	github.com/julienschmidt/httprouter v1.2.0
 	github.com/nats-io/gnatsd v1.4.1 // indirect
 	github.com/nats-io/go-nats v1.7.0

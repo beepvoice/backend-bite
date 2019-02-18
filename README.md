@@ -8,14 +8,14 @@ Beep backend handling of audio bites. Chopped up words spoken are uploaded into 
 go build && ./backend-bite
 ```
 
-## Flags
+## Environment Variables
 
-Flags are supplied to the compiled go program in the form ```-flag=stuff```.
+Supply environment variables by either exporting them or editing ```.env```.
 
-| Flag | Description | Default |
+| ENV | Description | Default |
 | ---- | ----------- | ------- |
-| listen | Port number to listen on | 8080 |
-| nats | URL of NATS | nats://localhost:4222 |
+| LISTEN | Host and port number to listen on | :8080 |
+| NATS | Host and port of nats | nats://localhost:4222 |
 
 ## API
 
