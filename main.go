@@ -7,6 +7,8 @@ import (
   "strconv"
   "time"
 
+  . "bite/backend-protobuf/go"
+
   "github.com/julienschmidt/httprouter"
   "github.com/nats-io/go-nats"
   "github.com/golang/protobuf/proto"
